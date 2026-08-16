@@ -1,0 +1,12 @@
+slug = "docs"
+name = "schematize-docs"
+tag = "Ferramenta · Documentação"
+status = "beta"
+order = 17
+current_version = "0.1.0"
+href = "/docs"
+
+[descriptions]
+pt = "Documentação da casa como disciplina: doc é parte da Definition of Done (não opcional), docs-as-code (no repo, revisada, versionada, TESTADA), ADR pra toda decisão relevante (proposed → accepted/rejected), runbooks operacionais, API docs/OpenAPI gerada do código, changelog + SemVer, diagramas C4/mermaid, e o índice/archive que a auditoria consome."
+en = "House documentation as a discipline: docs are part of the Definition of Done (not optional), docs-as-code (in the repo, reviewed, versioned, TESTED), an ADR for every relevant decision (proposed → accepted/rejected), operational runbooks, API docs/OpenAPI generated from code, changelog + SemVer, C4/mermaid diagrams, and the index/archive the audit consumes."
+es = "Documentación de la casa como disciplina: la doc es parte de la Definition of Done (no opcional), docs-as-code (en el repo, revisada, versionada, PROBADA), un ADR para cada decisión relevante (proposed → accepted/rejected), runbooks operativos, API docs/OpenAPI generada del código, changelog + SemVer, diagramas C4/mermaid, y el índice/archive que consume la auditoría."
