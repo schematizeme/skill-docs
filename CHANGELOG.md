@@ -1,6 +1,21 @@
 # Changelog — schematize-docs
 
-Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/). Versionamento semântico.
+Todas as mudanças relevantes deste pacote, no formato [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/),
+com versionamento [SemVer](https://semver.org/lang/pt-BR/).
+
+
+## [0.2.0] — 2026-08-21
+A skill que prega *"doc é TESTADA"* prometia **5 gates** e entregava **zero scripts**; e só tinha **comandos criadores** — faltava justamente o que exercita a tese (vistoria de 2026-08-21).
+
+### Adicionado
+- **`scripts/docs-gate.mjs`** — os cinco gates, num comando: **links** (relativo que não abre, âncora que não existe no arquivo ou no destino; link dentro de bloco de código é exemplo, não link), **openapi** (usa **Spectral** quando disponível e, quando não, roda um **piso embutido que declara ser piso**: sem `operationId`, id repetido, sem `summary`, **só o caminho feliz**, resposta sem `description`, Swagger 2.0, spec sem path), **drift** (rota no código fora da spec · caminho na spec sem rota no código · **inconclusivo reprova**), **indice** (§39, a contagem bate) e **root** (`.md` gerado solto na raiz).
+- **`scripts/lib-yaml-minimo.mjs`** — leitor de YAML mínimo para o gate rodar em CI **sem `npm install`**. Ele **declara o alcance** em vez de fingir: devolve avisos para a linha que não entendeu, porque gate que lê errado é pior que gate ausente.
+- **`/docs-review`** — o comando que faltava: roda os gates **e** lista o que a máquina não lê (o exemplo roda? a doc mente por omissão? o runbook é executável às 3h da manhã? o ADR registra o que foi descartado? sobrou doc morta?).
+- **`scripts/docs-gate.test.sh`** — **18 casos**, 16 vermelhos, contra repos de fixture com um defeito cada.
+
+### Decisões que valem registro
+- **Inconclusivo reprova** no drift: passar quando nenhuma rota foi reconhecida seria o gate mais perigoso do conjunto — diria "spec em dia" justamente quando não conseguiu olhar.
+- **`2` = nada verificável**, nunca `0`: ausência de material não é aprovação.
 
 ## [0.1.0] — 2026-08-15
 

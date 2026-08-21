@@ -1,7 +1,7 @@
 ---
 name: schematize-docs
 metadata:
-  version: 0.1.0
+  version: 0.2.0
 description: Documentação como parte da entrega, não como apêndice — a disciplina da casa para ADR, runbook, OpenAPI/contrato de API e o índice/MAPA com diagramas. Rege: ADR (contexto, opções, decisão, consequências; ciclo `proposed → accepted/rejected`, nunca um `proposed` órfão; caminho único `<projeto>_archive/decisoes/`), runbook operável (sintoma → diagnóstico → ação → rollback → escalação, testado, não ficção), OpenAPI que reflete a API de verdade (gerada/validada no CI, exemplos que respondem), README e índice §39 (MAPA + INDEX_GLOBAL + INDEX_FUNCTIONS + grafos, gerados do código e travando o merge quando defasados), diagramas (Mermaid versionado, nunca imagem opaca) e o piso de "todo MD gerado mora no archive, nunca no root". Use SEMPRE que for escrever, revisar ou cobrar documentação — ADR, runbook, README, OpenAPI, changelog, índice, diagrama — ou fechar uma entrega pela Definition of Done, mesmo sem citar "documentação". Doc desatualizada é bug, e doc que ninguém consegue executar não conta.
 ---
 
@@ -18,7 +18,7 @@ não patrimônio.
 a doc **grava a decisão e o como** (ADR, runbook, índice), e a auditoria depois **cobra** que o
 gravado seja verdade. Fecha o ciclo `decidir → construir → documentar → auditar`.
 
-**Versão:** skill `schematize-docs` v0.1.0. Changelog em `CHANGELOG.md`.
+**Versão:** skill `schematize-docs` v0.2.0. Changelog em `CHANGELOG.md`.
 
 ## Comandos (Claude Code)
 
@@ -29,6 +29,7 @@ Digite `/docs-help` pra ver todos. Em resumo:
 | `/docs-help` | lista todos os comandos do schematize-docs |
 | `/docs-adr` | cria ou movimenta um **ADR** (proposed → accepted/rejected) no `<projeto>_archive/decisoes/` (caminho único da casa), com contexto/decisão/consequências/alternativas; nunca deixa um `proposed` órfão |
 | `/docs-runbook` | scaffolda/atualiza um **runbook** operacional (sintomas → diagnóstico → ação → verificação → rollback → escalar) pra um serviço/incidente |
+| `/docs-review` | **revisa a doc como se revisa código**: roda os 5 gates (links, OpenAPI, drift, índice §39, root limpo) e lê o que a máquina não lê |
 | `/docs-api` | gera/valida a **API doc** (OpenAPI 3.1/contrato) a partir do código quando possível; checa drift entre spec e implementação |
 | `/docs-load` | carrega à força TODO o corpo normativo (disciplina, ADR, runbook, API/versionamento, índice/diagramas) e passa a aplicá-lo |
 | `/docs-claude` | cria ou mescla o `CLAUDE.md` sempre-on de documentação na raiz do repo |

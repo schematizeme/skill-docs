@@ -43,13 +43,22 @@ documenta; mexida interna sem efeito externo não gera papel por gerar.
 3. **Versionada.** A doc muda junto com o código, na mesma commit/PR, com o mesmo histórico. `git
    blame` na doc responde "por que isso mudou" tanto quanto no código. Changelog e SemVer
    (`api-versionamento.md`) versionam a superfície pública.
-4. **Testada no CI.** É o que separa docs-as-code de "markdown no git":
+4. **Testada no CI.** É o que separa docs-as-code de "markdown no git" — e desde 2026-08-21 isto
+   **roda**: `scripts/docs-gate.mjs` (comando `/docs-review`), `0` passa · `1` reprova · `2` nada
+   verificável, que não é aprovação. Os cinco gates:
    - **Links** — link interno/externo que abre (link-checker no CI); link morto reprova.
    - **Exemplos/snippets** — o código de exemplo **compila/roda** (doctest, exemplo executável, ou
      snippet extraído e testado). Exemplo que não roda é pior que nenhum: engana com autoridade.
    - **OpenAPI/contrato** — valida contra o schema **e** contra a implementação (drift check,
      `api-versionamento.md`).
    - **Índice (§39)** — a contagem bate (`nº de entradas == nº de funções`); CI reprova se não.
+   - **Root limpo** (§5 deste arquivo) — `.md` **gerado** na raiz reprova.
+
+   Duas decisões do gate que valem ser ditas: no **openapi**, ele usa **Spectral** quando existe e,
+   quando não existe, roda um **piso embutido** que **declara ser piso** (menos regras, não
+   substitui o lint); no **drift**, comparação **inconclusiva** — nenhuma rota reconhecida no
+   código — **reprova**, porque passar ali seria o gate mais perigoso do conjunto: ele diria "spec
+   em dia" justamente quando não conseguiu olhar.
 
 > Link morto, exemplo quebrado, spec fora de sincronia e índice defasado são **bugs de
 > documentação** — reprovam o gate igual a um teste vermelho. Doc não é "melhor esforço": é
