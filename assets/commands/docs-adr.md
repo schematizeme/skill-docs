@@ -1,5 +1,5 @@
 ---
-description: schematize-docs — cria ou movimenta um ADR (proposed → accepted/rejected) em docs/adr/, com contexto/decisão/alternativas/consequências; nunca deixa um proposed órfão
+description: schematize-docs — cria ou movimenta um ADR (proposed → accepted/rejected) em <projeto>_archive/decisoes/, com contexto/decisão/alternativas/consequências; nunca deixa um proposed órfão
 argument-hint: "[título/slug da decisão, ex: fila-sqs-vs-nats]"
 ---
 
@@ -13,8 +13,8 @@ linguagem (fit + ADR), padrão arquitetural (CQRS, modular monolith só com plan
 mudança de contrato público, nova fronteira/bounded context, migração. **Não** é ADR pra decisão
 trivial e reversível em minutos. Regra: se daqui a um ano alguém pergunta "por que assim?", é ADR.
 
-## 2. Crie o arquivo `docs/adr/<n>-${ARGUMENTS:-<slug>}.md`
-`<n>` sequencial (próximo número livre em `docs/adr/`). Estrutura (§3):
+## 2. Crie o arquivo `<projeto>/<projeto>_archive/decisoes/<n>-${ARGUMENTS:-<slug>}.md`
+`<n>` sequencial (próximo número livre em `<projeto>_archive/decisoes/` — **caminho único da casa**: é lá que a `/archive-todos` procura e a `/audit-run` audita). Estrutura (§3):
 - **Status:** `proposed` (ou o desfecho, se já decidido) · **Data** · **Autor(es)** · **Supersede**
 - **Contexto** — o que força a decisão agora (fatos/restrições, não opinião).
 - **Decisão** — em uma frase afirmativa, aplicável sem reabrir a discussão.

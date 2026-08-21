@@ -52,7 +52,7 @@ da auditoria passar.
 
 ## 3. Anatomia de um ADR (formato mínimo)
 
-Um ADR mora em `docs/adr/<n>-<slug>.md` (`<n>` sequencial, ex.: `0007-fila-sqs-vs-nats.md`) e
+Um ADR mora em `<projeto>/<projeto>_archive/decisoes/<n>-<slug>.md` (`<n>` sequencial, ex.: `0007-fila-sqs-vs-nats.md`) e
 carrega:
 
 ```markdown
@@ -96,12 +96,15 @@ que se pensava quando**, não só o estado final. Editar um ADR aceito pra "corr
 
 ## 5. Onde o ADR mora e como se liga ao resto
 
-- **Local:** `docs/adr/` versionado no repo (é um dos poucos MDs de projeto que fica fora do
-  `_archive`, junto de README/CLAUDE/LICENSE). O índice global (§39, `indice-diagramas.md`) linka
-  os ADRs relevantes de cada serviço.
+- **Local:** `<projeto>/<projeto>_archive/decisoes/`, versionado no repo do archive (que é repo
+  git próprio e privado — `schematize-archive`, `references/archive.md`). O índice global (§39,
+  `indice-diagramas.md`) linka os ADRs relevantes de cada serviço.
+
+> **Caminho único de ADR da casa:** `<projeto>/<projeto>_archive/decisoes/`. É onde o `/docs-adr` grava, onde a `/archive-todos` procura e onde a `/audit-run` audita — o mesmo lugar nos três. Antes de 2026-08-21 havia **quatro** caminhos concorrentes (`/docs/adr/`, `docs/adr/`, `_archive/decisoes/`, `archive/adr/`), o que tornava o piso *"ADR `proposed` é órfão RED"* inexequível por construção (achado B2b).
+
 - **Na DoD (§35):** decisão estruturante sem ADR = tarefa não pronta. O ADR entra no **mesmo PR**
   da mudança que ele justifica.
 - **Na auditoria:** a `schematize-audit` enumera os ADRs `proposed` e trava o veredito enquanto
   houver um sem desfecho. Fechar o ciclo (`accepted`/`rejected` datado) é o que sana o órfão.
-- **Com a engenharia:** o `references/arquitetura.md` (§27) da `schematize-engineering` define
+- **Com a engenharia:** a `schematize-engineering` define, em `references/operacao.md` §27 (*"ADR — Architecture Decision Records"*),
   **quando** a arquitetura exige ADR; este reference define **como** o ADR fica bom.

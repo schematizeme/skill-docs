@@ -33,7 +33,7 @@ documenta; mexida interna sem efeito externo não gera papel por gerar.
 
 "Docs-as-code" é a doc tratada com o mesmo rigor do código. Quatro exigências:
 
-1. **No repo, ao lado do que documenta.** ADR em `docs/adr/`, runbook em `docs/runbook*`, README
+1. **No repo, ao lado do que documenta.** ADR em `<projeto>_archive/decisoes/` (caminho único da casa), runbook em `docs/runbook*`, README
    na raiz do módulo, OpenAPI versionada, índice em `<projeto>_archive/index/` (§39). **Não** num
    wiki externo que ninguém atualiza no PR e que deriva no primeiro dia. A doc que não está no diff
    não é revisada e apodrece.
@@ -96,7 +96,7 @@ oncall às 3h com o serviço caído, o auditor que pergunta "por que essa decis�
 | Artefato | Onde |
 |---|---|
 | README | raiz do repo/módulo (mão) |
-| ADR | `docs/adr/<n>-<slug>.md` (versionado) — `adr.md` |
+| ADR | `<projeto>_archive/decisoes/<n>-<slug>.md` (versionado) — `adr.md` |
 | Runbook | `docs/runbook*.md` ou `/docs/runbook/` — `runbooks.md` |
 | OpenAPI/contrato | versionado (`openapi.yaml`/gerado) — `api-versionamento.md` |
 | Changelog | `CHANGELOG.md` na raiz (Keep a Changelog) — `api-versionamento.md` |

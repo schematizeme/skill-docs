@@ -44,21 +44,17 @@ Invariantes que fazem o índice ser confiável em vez de decorativo:
 Todo `.md` gerado pela skill/agente mora em `<projeto>_archive/`, **nunca no root**. O archive **é
 versionado** (entra no PR) e é onde vive a memória do projeto:
 
-```
-<projeto>_archive/
-  index/         # INDEX_GLOBAL.md, INDEX_FUNCTIONS.md (§39)
-  adr/           # ADRs, se o projeto os arquiva aqui (ou docs/adr/)
-  plan/          # planos do /eng-plan (fases + DoD + checklist)
-  scan/          # achados do /eng-scan
-  audit/         # relatórios da /audit-run (o que a auditoria grava)
-  overdev/       # OBJETIVO.md, premature-stops.log, PERGUNTAS
-  qa/            # planos de Q.A. plan-first
-  context/       # handoffs (context.md + checklist.md)
-  chat/  task/   # decisões de chat/task não triviais
-```
+> **A planta do archive tem UM dono: a `schematize-archive`** (`references/archive.md`, seção
+> "Estrutura"). Não repetimos a árvore aqui — três plantas concorrentes foi o achado B2 da vistoria
+> de 2026-08-21, e a divergência entre elas quebrou o caminho do ADR. O que interessa a esta skill:
+>
+> - o índice §39 mora em **`<projeto>_archive/index/`** (`MAPA.md`, `INDEX_GLOBAL.md`,
+>   `INDEX_FUNCTIONS.md` + grafos);
+> - o **ADR mora em `<projeto>_archive/decisoes/`** — caminho único da casa, o mesmo que o
+>   `/docs-adr` grava, a `/archive-todos` lê e a `/audit-run` audita.
 
 - **Root limpo:** só código, config e os MDs de mão (`README`, `CLAUDE`, `LICENSE`, `CHANGELOG`,
-  `docs/adr/`, `docs/runbook*`). Largar MAPA/índice/plano/relatório no root é **violação (§37)**.
+  `docs/runbook*`). ADR **não** fica no root: mora em `<projeto>_archive/decisoes/`. Largar MAPA/índice/plano/relatório no root é **violação (§37)**.
 - **Archive é parte da entrega, não extra:** PR sem o `.md` que a regra exige **não passa no
   review** (§35). Falta de tempo **não revoga** a §28 — gerar o `.md` é tão obrigatório quanto
   compilar.

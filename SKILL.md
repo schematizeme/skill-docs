@@ -2,7 +2,7 @@
 name: schematize-docs
 metadata:
   version: 0.1.0
-description: Documentação da casa como DISCIPLINA — não um extra de fim de tarefa, mas parte da Definition of Done (§35). Rege docs-as-code (a doc mora no repo, é revisada no PR, versionada, e TESTADA — link que abre, exemplo que roda, snippet que compila; doc que quebra é bug); ADRs (toda decisão arquitetural relevante vira um ADR versionado no ciclo proposed → accepted/rejected — o MESMO ciclo que a schematize-audit cobra como órfão RED quando fica `proposed` pra sempre); READMEs úteis (o que é, como rodar, como testar, como deployar, oncall/runbook — não um parágrafo morto); runbooks operacionais (o que fazer quando quebra, passo a passo, sob incidente); API docs e contratos (OpenAPI 3.1/schema, GERADOS do código quando possível pra não derivar); changelog e versionamento semântico (Keep a Changelog + SemVer, breaking change registrado); diagramas (C4 + mermaid versionados como código, não PNG que apodrece); o **archive (§28) e o índice/MAPA (§39)** da casa — o rastro que a auditoria e o overdev CONSOMEM; e a escrita clara e mínima (doc que ninguém lê é dívida, não patrimônio — corte o que não serve). Pisos: doc é parte do DoD (não opcional), ADR pra toda decisão relevante, doc-as-code testada no CI, tudo durável no archive/índice, root limpo. Use SEMPRE que for escrever, revisar, gerar ou auditar QUALQUER documentação — README, ADR, runbook, API doc, changelog, diagrama, índice/MAPA, handoff — ou ao decidir arquitetura/contrato (que exige ADR), fechar uma entrega (que exige doc na DoD), ou preparar o rastro que a auditoria vai ler — mesmo sem citar "documentação". Pareia com a schematize-engineering (a BASE: DoD §35, archive §28, índice §39, ADR §27) e com a schematize-audit (que verifica se a doc prometida existe e se os ADRs proposed viraram desfecho).
+description: Documentação como parte da entrega, não como apêndice — a disciplina da casa para ADR, runbook, OpenAPI/contrato de API e o índice/MAPA com diagramas. Rege: ADR (contexto, opções, decisão, consequências; ciclo `proposed → accepted/rejected`, nunca um `proposed` órfão; caminho único `<projeto>_archive/decisoes/`), runbook operável (sintoma → diagnóstico → ação → rollback → escalação, testado, não ficção), OpenAPI que reflete a API de verdade (gerada/validada no CI, exemplos que respondem), README e índice §39 (MAPA + INDEX_GLOBAL + INDEX_FUNCTIONS + grafos, gerados do código e travando o merge quando defasados), diagramas (Mermaid versionado, nunca imagem opaca) e o piso de "todo MD gerado mora no archive, nunca no root". Use SEMPRE que for escrever, revisar ou cobrar documentação — ADR, runbook, README, OpenAPI, changelog, índice, diagrama — ou fechar uma entrega pela Definition of Done, mesmo sem citar "documentação". Doc desatualizada é bug, e doc que ninguém consegue executar não conta.
 ---
 
 # Documentação da casa (schematize-docs)
@@ -27,7 +27,7 @@ Digite `/docs-help` pra ver todos. Em resumo:
 | Comando | O que faz |
 |---|---|
 | `/docs-help` | lista todos os comandos do schematize-docs |
-| `/docs-adr` | cria ou movimenta um **ADR** (proposed → accepted/rejected) no `docs/adr/`, com contexto/decisão/consequências/alternativas; nunca deixa um `proposed` órfão |
+| `/docs-adr` | cria ou movimenta um **ADR** (proposed → accepted/rejected) no `<projeto>_archive/decisoes/` (caminho único da casa), com contexto/decisão/consequências/alternativas; nunca deixa um `proposed` órfão |
 | `/docs-runbook` | scaffolda/atualiza um **runbook** operacional (sintomas → diagnóstico → ação → verificação → rollback → escalar) pra um serviço/incidente |
 | `/docs-api` | gera/valida a **API doc** (OpenAPI 3.1/contrato) a partir do código quando possível; checa drift entre spec e implementação |
 | `/docs-load` | carrega à força TODO o corpo normativo (disciplina, ADR, runbook, API/versionamento, índice/diagramas) e passa a aplicá-lo |
@@ -87,7 +87,7 @@ Independente do reference, estes limites nunca são cruzados:
    e porquê, o que fazer quando quebra. Corte o resto. Prosa que ninguém consulta apodrece e
    engana — deletar doc morta é manutenção, não perda.
 6. **Rastro durável no archive/índice — root limpo.** Todo `.md` gerado mora em
-   `<projeto>_archive/` (§28) ou no `docs/` versionado do projeto (ADR em `docs/adr/`, runbook em
+   `<projeto>_archive/` (§28) — ADR em `<projeto>_archive/decisoes/` — ou no `docs/` versionado do projeto (runbook em
    `docs/runbook*`, índice em `<projeto>_archive/index/` §39). O root fica limpo: só código,
    config e os poucos MDs de mão (`README`, `CLAUDE`, `LICENSE`). Largar plano/relatório/índice no
    root é violação (§37).
