@@ -4,6 +4,11 @@ Todas as mudanças relevantes deste pacote, no formato [Keep a Changelog](https:
 com versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
 
+## [0.3.0] — 2026-08-21
+
+### Corrigido
+- **A allowlist do root era diferente em quatro lugares** — dois **com** `CHANGELOG` e dois **sem** —, numa skill cujo piso 6 é *root limpo*. Agora é uma só (**README, CLAUDE, LICENSE, CHANGELOG, CONTRIBUTING, SECURITY**), com o critério escrito (`CHANGELOG` entra porque a casa normatiza Keep a Changelog **na raiz**; **ADR não entra** — mora em `<projeto>_archive/decisoes/`) e, principalmente, **em código**: o gate `scripts/docs-gate.mjs --so root` usa a mesma lista, com o comentário apontando a fonte.
+
 ## [0.2.0] — 2026-08-21
 A skill que prega *"doc é TESTADA"* prometia **5 gates** e entregava **zero scripts**; e só tinha **comandos criadores** — faltava justamente o que exercita a tese (vistoria de 2026-08-21).
 

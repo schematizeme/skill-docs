@@ -211,6 +211,10 @@ if (SO.includes('root')) {
   rodou++
   // A lista e dos MDs escritos A MAO que sao contrato do repo. Tudo o mais que for `.md` na raiz e
   // artefato GERADO, e artefato gerado mora em `<projeto>_archive/` ou `docs/`.
+  // A allowlist é a MESMA de `references/disciplina.md` §5 (root limpo): README, CLAUDE, LICENSE,
+  // CHANGELOG, CONTRIBUTING, SECURITY — mais os nomes que ferramentas do ecossistema exigem na raiz
+  // (SKILL/AGENTS/CONTEXT/CODE_OF_CONDUCT). `CHANGELOG` entra porque a casa normatiza Keep a
+  // Changelog **na raiz**; ADR NÃO entra (mora em `<projeto>_archive/decisoes/`).
   const PERMITIDOS = /^(README|CLAUDE|SKILL|LICENSE|CHANGELOG|CONTRIBUTING|CODE_OF_CONDUCT|SECURITY|AGENTS|CONTEXT)(\.[a-z-]+)?\.(md|txt)$/i
   let mds = 0
   for (const e of readdirSync(raiz, { withFileTypes: true })) {

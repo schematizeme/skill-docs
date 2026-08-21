@@ -113,7 +113,7 @@ oncall às 3h com o serviço caído, o auditor que pergunta "por que essa decis�
 | Índice/MAPA (§39) | `<projeto>_archive/index/` — `indice-diagramas.md` |
 | Plano/relatório/handoff/scan/auditoria | `<projeto>_archive/**` (§28) |
 
-O **root fica limpo**: só código, config e os poucos MDs de mão (`README`, `CLAUDE`, `LICENSE`).
+O **root fica limpo**: só código, config e os poucos MDs de mão — `README`, `CLAUDE`, `LICENSE`, `CHANGELOG`, `CONTRIBUTING`, `SECURITY`. *(A allowlist é **esta**, e ela é a mesma nos três lugares desta skill e no gate `scripts/docs-gate.mjs --so root`. `CHANGELOG` entra porque a própria casa normatiza Keep a Changelog **na raiz**; ADR **não** entra — mora em `<projeto>_archive/decisoes/`.)*
 Largar MAPA/índice/plano/relatório no root é violação (§37) e fere a contenção de workspace. Antes
 de gravar qualquer `.md`, o caminho começa com `<projeto>_archive/` ou `docs/` — nunca solto no
 root.

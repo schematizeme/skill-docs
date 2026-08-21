@@ -34,8 +34,7 @@ piso, **o piso vence**. Consulte o reference antes de agir — não trabalhe de 
 6. **Rastro durável no archive/índice — root limpo.** Todo `.md` gerado mora em
    `<project>_archive/` (§28) ou no `docs/` versionado (ADR em `docs/adr/`, runbook em
    `docs/runbook*`, índice em `<project>_archive/index/` §39). O root fica limpo: só código, config
-   e os poucos MDs de mão (`README`, `CLAUDE`, `LICENSE`, `CHANGELOG`). Largar plano/relatório/
-   índice no root é violação (§37).
+   e os poucos MDs de mão (`README`, `CLAUDE`, `LICENSE`, `CHANGELOG`, `CONTRIBUTING`, `SECURITY`). Largar plano/relatório/índice/**ADR** no root é violação (§37).
 7. **Índice/MAPA é fonte da verdade e tem gate.** O índice (§39) **conta, não resume** e trava o
    merge quando desatualizado. Diagrama (C4/mermaid) é **versionado como código**, nunca PNG solto.
 
