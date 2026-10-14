@@ -3,9 +3,8 @@ name: schematize-docs
 metadata:
   version: 0.4.0
 description: >-
-  Documentação como entrega: ADR, runbook, OpenAPI, README, índice/MAPA §39 e diagramas Mermaid. Use ao escrever ou
-  cobrar docs, fechar entrega pela DoD, ou ao ver ADR proposed parado, spec fora do código, link morto ou MD solto no
-  root. Traz gate `docs-gate.mjs`.
+  Docs como entrega: ADR, runbook, OpenAPI, README, índice/MAPA §39 e diagramas Mermaid. Use ao escrever ou cobrar
+  docs, fechar pela DoD, ou ao ver ADR proposed parado, link morto ou MD solto. Gate `docs-gate.mjs`.
 ---
 
 # Documentação da casa (schematize-docs)
