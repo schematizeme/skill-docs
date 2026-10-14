@@ -1,7 +1,7 @@
 ---
 name: schematize-docs
 metadata:
-  version: 0.4.0
+  version: 0.4.1
 description: >-
   Docs como entrega: ADR, runbook, OpenAPI, README, índice/MAPA §39 e diagramas Mermaid. Use ao escrever ou cobrar
   docs, fechar pela DoD, ou ao ver ADR proposed parado, link morto ou MD solto. Gate `docs-gate.mjs`.
@@ -20,7 +20,7 @@ não patrimônio.
 a doc **grava a decisão e o como** (ADR, runbook, índice), e a auditoria depois **cobra** que o
 gravado seja verdade. Fecha o ciclo `decidir → construir → documentar → auditar`.
 
-**Versão:** skill `schematize-docs` v0.4.0. Changelog em `CHANGELOG.md`.
+**Versão:** skill `schematize-docs` v0.4.1. Changelog em `CHANGELOG.md`.
 
 ## Comandos (Claude Code)
 
