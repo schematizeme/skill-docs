@@ -3,8 +3,7 @@ name: schematize-docs
 metadata:
   version: 0.4.1
 description: >-
-  Docs como entrega: ADR, runbook, OpenAPI, README, índice/MAPA §39 e diagramas Mermaid. Use ao escrever ou cobrar
-  docs, fechar pela DoD, ou ao ver ADR proposed parado, link morto ou MD solto. Gate `docs-gate.mjs`.
+  Docs como entrega: ADR, runbook, README, índice/MAPA e diagramas Mermaid. Use ao escrever ou cobrar docs, ADR parado ou link morto (`docs-gate.mjs`). Contrato: schematize-api.
 ---
 
 # Documentação da casa (schematize-docs)
@@ -100,6 +99,34 @@ Independente do reference, estes limites nunca são cruzados:
    PNG solto que ninguém consegue editar. Doc de arquitetura que diverge da realidade é pior que
    ausência.
 
+## Precedência e herança (leia antes de divergir)
+
+<!-- herdado:engineering/precedencia:dominio intro="Esta skill é o recorte **Documentação como entrega (ADR, runbook, README, índice)** da `schematize-engineering`: **disciplina de domínio**, não linguagem de backend." cmd="docs" -->Esta skill é o recorte **Documentação como entrega (ADR, runbook, README, índice)** da `schematize-engineering`: **disciplina de domínio**, não linguagem de backend.
+
+1. **Onde esta skill divergir da base, a BASE MANDA.** Aqui mora a especialização do domínio ou da
+   ferramenta — o como, o padrão, o gate. Divergência de *piso* é defeito desta skill, não variante local.
+2. **O que não está repetido aqui é HERDADO, não dispensado.** Esta skill herda os pisos da base e
+   os comandos dela cobrem o **domínio**, não o piso geral. Valem integralmente, sem cópia local:
+   - **§28 Archive** — `<projeto>/<projeto>_archive/` é **repositório git próprio, PRIVADO e
+     obrigatório**, criticidade 0 (`schematize-archive`).
+   - **§35 Definition of Done** e a lista de anti-padrões (citada por **título**, nunca por número).
+   - **§39 Índice/MAPA** — enumeração exaustiva (uma entrada por unidade chamável, `M == N`) e grafo
+     com arestas em ASCII (`A -> B`), nunca a seta unicode.
+   - **IAM** (`schematize-engineering` → `references/iam.md`): identidade ≠ email, ≥2 fatores, ReBAC
+     multi-tenant, argon2id-only para senha nova, sessão longa e logout irreversível.
+   - **Efeito externo** nunca sai de não-produção (`schematize-engineering` →
+     `references/efeitos-externos.md`).
+   - **Orquestração** (`schematize-engineering` → `references/orquestracao.md` §9): o principal não
+     desenvolve (é Claude Opus); executor mais barato que resolve — `haiku`/`sonnet` → Codex Terra → Cursor → `opus` só após falha; visual direto ao Codex; imagem nunca pelo Claude: detecta Codex/Gemini e pergunta ao usuário qual usar (Codex é a sugestão, não automática), nunca API paga.
+3. **QA, ops, IAM e índice não têm comando próprio aqui:** vêm da base `/eng-*`. Para trabalho
+   contínuo use `/eng-overdev`; para planejar `/eng-plan`; para varrer a base `/eng-scan`; para
+   revisão geral `/eng-review` (e `/eng-ops`, `/eng-iam`, `/eng-index`). Os comandos
+   `/docs-*` cobrem o domínio desta skill; o piso geral é o da base.<!-- /herdado -->
+
+## Orquestração
+
+<!-- herdado:engineering/orquestracao:curto -->**Orquestrador não desenvolve; subagent barato executa.** O agent principal só planeja, despacha e revisa; ação onerosa vira micro-tasks para o executor mais barato que resolve: `haiku` (mecânico) / `sonnet` (código; falhou → mesmo subagent corrige, até 2 rodadas) → Codex `gpt-5.6-terra` → Cursor → subagent `opus` (motivo) → `park`; **visual vai direto ao Codex**; **imagem nunca pelo Claude: detectar Codex/Gemini e perguntar ao usuário qual usar (Codex é a sugestão), nunca API de imagem paga**; papéis em `agentes.toml`. No overdev, cada item do checklist vai a um subagent e o principal revisa antes do `- [x]`. **Sem frota ociosa:** idle com pendência volta ao trabalho; dependente de outro agent → mata e enfileira com gatilho; terminou → mata (§9.6). Detalhe: `schematize-engineering` → `references/orquestracao.md` §9.<!-- /herdado -->
+
 ## Relação com as outras skills
 
 - **schematize-engineering** — a **BASE**. Esta skill destila e opera a **camada de documentação**
@@ -110,6 +137,13 @@ Independente do reference, estes limites nunca são cruzados:
   produz: ADR `proposed` que nunca virou `accepted`/`rejected` é **órfão RED**; doc/entrega
   prometida que não existe no caminho prometido **volta a aberto**; índice cuja contagem não bate
   é auditoria incompleta. Documentar bem é o que faz a auditoria passar.
+- **schematize-api** — dona do **conteúdo do contrato** (OpenAPI, erros, paginação, webhooks, breaking e
+  Sunset: `schematize-api → references/contrato-rest.md`, `references/versionamento-deprecacao.md`); esta
+  skill entrega a doc dele (spec versionada, drift check, changelog).
+- **schematize-incident** — o **postmortem** (`schematize-incident → references/postmortem.md`, em
+  `<projeto>_archive/postmortems/`); o runbook daqui é o que ele atualiza.
+- **schematize-skill-dev** — a **autoria de skill** (`SKILL.md`, anatomia, blocos herdados, lint, release:
+  `schematize-skill-dev → references/anatomia.md`). Docs de projeto são daqui; docs *de skill* são de lá.
 - **schematize-web / go / rust / elixir / c# / zig / ruby / node** — a doc é agnóstica, mas o
   **gerador** e o **gate** rodam na stack: OpenAPI/índice saem do código daquela linguagem
   (`/<slug>-index`, `/<slug>-review`), e a doc-as-code é testada no CI dela. Esta skill dá a

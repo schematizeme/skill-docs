@@ -89,6 +89,11 @@ Runbook que nunca foi exercitado é ficção. A casa testa runbook como testa do
 
 ## 5. Onde mora e como se liga
 
+- **Postmortem não é runbook.** O runbook diz o que fazer quando quebra; o **postmortem** (linha do
+  tempo, causa, action items, blameless) é de `schematize-incident → references/postmortem.md` e mora em
+  `<projeto>_archive/postmortems/`. O postmortem alimenta o runbook: todo incidente atualiza o passo
+  que faltou ou estava errado.
+
 - **Local:** `docs/runbook.md` (ou `/docs/runbook/<serviço>.md`), versionado no repo, linkado pelo
   README (`disciplina.md` §3) e pelo índice global (§39, `indice-diagramas.md`).
 - **Observabilidade:** o runbook é a ponte entre o **alerta** (que a `schematize-engineering`

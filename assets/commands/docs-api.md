@@ -7,6 +7,10 @@ Gere ou valide a **documentação de API** — `references/api-versionamento.md`
 gerado do código** (pra não derivar), **testado** contra a implementação, e a superfície pública
 versionada com **SemVer** + **changelog**.
 
+> O **conteúdo** do contrato (desenho REST/gRPC, erros, paginação, idempotência, webhooks, o que é
+> breaking) é da `schematize-api` (`/api-design`, `/api-review`, `/api-breaking`); este comando cuida da
+> doc como entrega.
+
 ## 1. Gere/derive a spec do código (§1)
 Prefira **derivar** a OpenAPI 3.1 (ou protobuf/GraphQL SDL/AsyncAPI) das anotações/tipos/handlers,
 não manter à mão em paralelo. Onde for spec-first, o código é gerado/validado **contra** a spec.

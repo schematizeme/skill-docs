@@ -6,6 +6,11 @@
 > versiona a superfície pública com **SemVer** + **changelog** (Keep a Changelog). Contrato é
 > código; doc de contrato é testada como código.
 
+> **Dona do conteúdo do contrato: `schematize-api`** (OpenAPI contract-first, erros RFC 9457, paginação,
+> idempotência, webhooks, compatibilidade e Sunset — `schematize-api → references/contrato-rest.md` e
+> `references/versionamento-deprecacao.md`). Aqui fica a **doc como entrega**: a spec versionada no repo,
+> o drift check no CI, o changelog escrito para o consumidor e o ADR do breaking.
+
 ## 1. OpenAPI 3.1 — a spec é gerada, não escrita à mão
 
 Toda API HTTP da casa tem uma **OpenAPI 3.1** (ou o contrato equivalente da tecnologia:
@@ -42,7 +47,7 @@ Doc de API só vale se for verdade **hoje**. O CI checa o **drift** entre spec e
 
 A superfície pública (API, evento, biblioteca compartilhada) versiona com **SemVer** `MAJOR.MINOR.PATCH`:
 
-- **MAJOR** — **breaking change**: remover/renomear campo ou rota, mudar tipo, apertar validação,
+- **MAJOR** — **breaking change** (o que conta como breaking e como deprecar: `schematize-api → references/versionamento-deprecacao.md`): remover/renomear campo ou rota, mudar tipo, apertar validação,
   mudar semântica. Exige ADR (`adr.md`) e plano de migração/deprecação — nunca big-bang silencioso.
 - **MINOR** — adição retrocompatível: rota/campo novo opcional, novo valor de enum tolerado.
 - **PATCH** — correção que não muda o contrato: bug fix, doc, performance.
