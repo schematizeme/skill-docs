@@ -3,7 +3,7 @@ name = "schematize-docs"
 tag = "Ferramenta · Documentação"
 status = "beta"
 order = 17
-current_version = "0.4.1"
+current_version = "0.5.0"
 href = "/docs"
 
 [descriptions]
