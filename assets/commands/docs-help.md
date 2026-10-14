@@ -7,7 +7,7 @@ Liste os comandos do **schematize-docs** instalados (`/docs-*`), com 1 linha cad
 - `/docs-help` — esta lista.
 - `/docs-adr` — cria ou movimenta um **ADR** (`proposed -> accepted/rejected`) em `<projeto>_archive/decisoes/`, com contexto/decisão/alternativas/consequências; nunca deixa um `proposed` órfão.
 - `/docs-runbook` — scaffolda/atualiza um **runbook** operacional (sintoma → diagnóstico → ação → verificação → rollback → escalar) pra um serviço/incidente.
-- `/docs-review` — **o comando que exercita a tese "doc é TESTADA"**: roda os 5 gates (links, OpenAPI, drift, índice §39, root limpo) e depois lê o que a máquina não lê.
+- `/docs-review` — **o comando que exercita a tese "doc é TESTADA"**: roda os 7 gates (links, OpenAPI, drift, índice §39, root limpo, ADR `proposed`, diagrama sem fonte) e depois lê o que a máquina não lê.
 - `/docs-api` — gera/valida a **API doc** (OpenAPI 3.1/contrato) a partir do código quando possível; checa o **drift** entre spec e implementação; cuida do changelog + SemVer.
 - `/docs-load` — carrega à força TODO o corpo normativo (disciplina, ADR, runbook, API/versionamento, índice/diagramas) e passa a aplicá-lo.
 - `/docs-claude` — cria ou mescla o `CLAUDE.md` sempre-on de documentação na raiz do repo.

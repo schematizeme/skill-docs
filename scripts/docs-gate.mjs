@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// schematize-docs — os CINCO gates que a skill prometia e nao tinha (vistoria de 2026-08-21:
+// schematize-docs — os SETE gates que a skill prometia e nao tinha (vistoria de 2026-08-21:
 // "promete 5 gates e entrega zero scripts"). Doc nao e "melhor esforco": e verificavel, e o que e
 // verificavel a casa verifica — inclusive a doc desta skill.
 //
@@ -8,8 +8,10 @@
 //   drift    rota no codigo fora da spec, e caminho na spec sem rota no codigo
 //   indice   a contagem do indice (secao 39) bate com as funcoes do codigo
 //   root     o root fica limpo: so codigo, config e os poucos MDs de mao
+//   adr      ADR `proposed` sem data, ou mais velho que --adr-dias (default 30), e orfao
+//   diagrama imagem de diagrama (png/jpg/svg...) em docs/ ou *_archive/ sem fonte .mmd/mermaid
 //
-// uso: docs-gate.mjs [dir] [--so links,openapi,...] [--spec caminho] [--externos] [--json]
+// uso: docs-gate.mjs [dir] [--so links,openapi,...] [--spec caminho] [--externos] [--adr-dias N] [--json]
 //      0 = passa · 1 = REPROVA · 2 = nada para verificar / uso errado
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs'
 import { join, relative, resolve, dirname } from 'node:path'
@@ -18,9 +20,9 @@ import { analisa } from './lib-yaml-minimo.mjs'
 
 const argv = process.argv.slice(2)
 const opt = (k) => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] : undefined }
-const consumidos = new Set([opt('--so'), opt('--spec')].filter(Boolean))
+const consumidos = new Set([opt('--so'), opt('--spec'), opt('--adr-dias')].filter(Boolean))
 const raiz = resolve(argv.find(a => !a.startsWith('--') && !consumidos.has(a)) || '.')
-const SO = (opt('--so') || 'links,openapi,drift,indice,root').split(',').map(s => s.trim())
+const SO = (opt('--so') || 'links,openapi,drift,indice,root,adr,diagrama').split(',').map(s => s.trim())
 const IGNORA = new Set(['node_modules', '.git', 'target', 'dist', 'build', '.next', '_build', 'versions', 'vendor', 'coverage'])
 
 function varrer(dir, filtro, achados = []) {
@@ -225,6 +227,41 @@ if (SO.includes('root')) {
     }
   }
   if (!mds) avisos.push('root: nenhum .md na raiz — nem README?')
+}
+
+// ---------------------------------------------------------------------------- 6. adr proposed
+if (SO.includes('adr')) {
+  const adrs = varrer(raiz, (n, p) => /\.md$/i.test(n) && n.toLowerCase() !== 'readme.md' && /[\\/]decisoes[\\/][^\\/]+$/.test(p))
+  if (!adrs.length) avisos.push('adr: nenhum ADR em decisoes/ — nada a verificar')
+  else {
+    rodou++
+    const limite = Number(opt('--adr-dias') || 30)
+    for (const f of adrs) {
+      const t = readFileSync(f, 'utf8')
+      const st = t.match(/^\W*(?:status|situa[cç][aã]o)\W*[:：]?\**\s*`?([a-z]+)/im)
+      if (!st || st[1].toLowerCase() !== 'proposed') continue
+      const dt = t.match(/^\W*data\W*[:：]?\**\s*(\d{4}-\d{2}-\d{2})/im)
+      if (!dt) { falhas.push(`adr: ${rel(f)} esta proposed e sem **Data:** — proposed sem data e orfao por construcao`); continue }
+      const idade = Math.floor((Date.now() - Date.parse(dt[1] + 'T00:00:00Z')) / 86400000)
+      if (idade > limite) falhas.push(`adr: ${rel(f)} proposed ha ${idade} dia(s) (limite ${limite}) — decida accepted/rejected, datado; proposed eterno e orfao RED`)
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------- 7. diagrama sem fonte
+if (SO.includes('diagrama')) {
+  const IMG = /\.(png|jpe?g|gif|webp|svg)$/i
+  const NOME = /(diagram|diagrama|arquitetura|architecture|fluxo|flow|c4|erd|sequen[cs]|topologia)/i
+  const imgs = varrer(raiz, (n, p) => IMG.test(n) && NOME.test(n) && /(^|[\\/])(docs|[^\\/]*_archive)[\\/]/.test(relative(raiz, p)) )
+  if (imgs.length) rodou++
+  for (const img of imgs) {
+    const base = img.replace(IMG, '')
+    const nome = img.split(/[\\/]/).pop()
+    const irmaos = readdirSync(dirname(img))
+    const temFonte = ['.mmd', '.mermaid', '.puml', '.d2'].some(e => existsSync(base + e))
+      || irmaos.some(i => /\.md$/i.test(i) && (() => { const t = readFileSync(join(dirname(img), i), 'utf8'); return /```mermaid/.test(t) && t.includes(nome.replace(IMG, '')) })())
+    if (!temFonte) falhas.push(`diagrama: ${rel(img)} e imagem sem fonte (.mmd/.mermaid ao lado, ou \`\`\`mermaid no .md vizinho) — diagrama so em imagem ninguem atualiza`)
+  }
 }
 
 if (!rodou) {

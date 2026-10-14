@@ -2,7 +2,8 @@
 name: schematize-docs
 metadata:
   version: 0.3.0
-description: Documentação como parte da entrega, não como apêndice — a disciplina da casa para ADR, runbook, OpenAPI/contrato de API e o índice/MAPA com diagramas. Rege: ADR (contexto, opções, decisão, consequências; ciclo `proposed → accepted/rejected`, nunca um `proposed` órfão; caminho único `<projeto>_archive/decisoes/`), runbook operável (sintoma → diagnóstico → ação → rollback → escalação, testado, não ficção), OpenAPI que reflete a API de verdade (gerada/validada no CI, exemplos que respondem), README e índice §39 (MAPA + INDEX_GLOBAL + INDEX_FUNCTIONS + grafos, gerados do código e travando o merge quando defasados), diagramas (Mermaid versionado, nunca imagem opaca) e o piso de "todo MD gerado mora no archive, nunca no root". Use SEMPRE que for escrever, revisar ou cobrar documentação — ADR, runbook, README, OpenAPI, changelog, índice, diagrama — ou fechar uma entrega pela Definition of Done, mesmo sem citar "documentação". Doc desatualizada é bug, e doc que ninguém consegue executar não conta.
+description: >-
+  Documentação como entrega: ADR, runbook, OpenAPI, README, índice/MAPA §39 e diagramas Mermaid. Use ao escrever, revisar ou cobrar docs, ao fechar entrega pela DoD, ou ao ver ADR proposed parado, spec fora do código, link morto, MD solto no root. Gate docs-gate.mjs: links, openapi, drift, índice, root, adr, diagrama.
 ---
 
 # Documentação da casa (schematize-docs)
@@ -29,7 +30,7 @@ Digite `/docs-help` pra ver todos. Em resumo:
 | `/docs-help` | lista todos os comandos do schematize-docs |
 | `/docs-adr` | cria ou movimenta um **ADR** (proposed → accepted/rejected) no `<projeto>_archive/decisoes/` (caminho único da casa), com contexto/decisão/consequências/alternativas; nunca deixa um `proposed` órfão |
 | `/docs-runbook` | scaffolda/atualiza um **runbook** operacional (sintomas → diagnóstico → ação → verificação → rollback → escalar) pra um serviço/incidente |
-| `/docs-review` | **revisa a doc como se revisa código**: roda os 5 gates (links, OpenAPI, drift, índice §39, root limpo) e lê o que a máquina não lê |
+| `/docs-review` | **revisa a doc como se revisa código**: roda os 7 gates (links, OpenAPI, drift, índice §39, root limpo, ADR `proposed`, diagrama sem fonte) e lê o que a máquina não lê |
 | `/docs-api` | gera/valida a **API doc** (OpenAPI 3.1/contrato) a partir do código quando possível; checa drift entre spec e implementação |
 | `/docs-load` | carrega à força TODO o corpo normativo (disciplina, ADR, runbook, API/versionamento, índice/diagramas) e passa a aplicá-lo |
 | `/docs-claude` | cria ou mescla o `CLAUDE.md` sempre-on de documentação na raiz do repo |
@@ -47,8 +48,9 @@ Os comandos ficam em `assets/commands/` e são instalados em `.claude/commands/`
 2. **Toda decisão relevante vira ADR** (`references/adr.md`): escolha de banco/broker/linguagem,
    padrão arquitetural, mudança de contrato, qualquer desvio do padrão. Ciclo
    `proposed → accepted/rejected` com motivo datado — nunca `proposed` pra sempre.
-3. **Doc é código:** mora no repo, revisada no PR, versionada, e **testada no CI** (link que
-   abre, exemplo que roda, spec que casa com a implementação). Doc quebrada reprova o gate.
+3. **Doc é código:** mora no repo, revisada no PR, versionada, e **testada no CI** (o gate
+   prova: link que abre, spec que casa com a implementação, `proposed` com prazo, diagrama com fonte;
+   exemplo que roda e runbook exercitado em game day são verificados em review — sem script). Doc quebrada reprova o gate.
 4. **Não trabalhe de memória** — as anatomias (ADR, runbook, OpenAPI, índice) e os pisos estão
    nos references. Aplique os pisos abaixo independentemente do reference carregado.
 
@@ -90,8 +92,8 @@ Independente do reference, estes limites nunca são cruzados:
 6. **Rastro durável no archive/índice — root limpo.** Todo `.md` gerado mora em
    `<projeto>_archive/` (§28) — ADR em `<projeto>_archive/decisoes/` — ou no `docs/` versionado do projeto (runbook em
    `docs/runbook*`, índice em `<projeto>_archive/index/` §39). O root fica limpo: só código,
-   config e os poucos MDs de mão (`README`, `CLAUDE`, `LICENSE`, `CHANGELOG`, `CONTRIBUTING`, `SECURITY`). Largar plano/relatório/índice/ADR no root é violação
-   (§37). *(A allowlist é **esta**, e ela é a mesma nos três lugares desta skill e no gate `scripts/docs-gate.mjs --so root`. `CHANGELOG` entra porque a própria casa normatiza Keep a Changelog **na raiz**; ADR **não** entra — mora em `<projeto>_archive/decisoes/`.)*
+   config e os poucos MDs de mão (`README`, `CLAUDE`, `SKILL`, `LICENSE`, `CHANGELOG`, `CONTRIBUTING`, `CODE_OF_CONDUCT`, `SECURITY`, `AGENTS`, `CONTEXT`). Largar plano/relatório/índice/ADR no root é violação
+   (§37). *(A fonte da allowlist é o gate `scripts/docs-gate.mjs --so root`; esta lista e a de `references/disciplina.md` §5 a espelham. `CHANGELOG` entra porque a própria casa normatiza Keep a Changelog **na raiz**; ADR **não** entra — mora em `<projeto>_archive/decisoes/`.)*
 7. **Índice/MAPA é fonte da verdade e tem gate.** O índice (§39) enumera — **conta, não resume** —
    e trava o merge quando desatualizado. Diagrama (C4/mermaid) é **versionado como código**, nunca
    PNG solto que ninguém consegue editar. Doc de arquitetura que diverge da realidade é pior que

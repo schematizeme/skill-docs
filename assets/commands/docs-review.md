@@ -1,5 +1,5 @@
 ---
-description: schematize-docs — revisa a documentação como se revisa código: roda os 5 gates (links, OpenAPI, drift, índice §39, root limpo) e lê o que a máquina não lê (o exemplo bate? a doc mente?)
+description: schematize-docs — revisa a documentação como se revisa código: roda os 7 gates (links, OpenAPI, drift, índice §39, root limpo, ADR `proposed`, diagrama sem fonte) e lê o que a máquina não lê (o exemplo bate? a doc mente?)
 argument-hint: "[diretório ou PR]"
 ---
 
@@ -45,5 +45,5 @@ feature sem a doc que a DoD pede **não passa**. Os gates entram no CI e travam 
 
 ## Prova do próprio gate
 
-`bash .claude/skills/schematize-docs/scripts/docs-gate.test.sh` — 18 casos, 16 vermelhos de
+`bash .claude/skills/schematize-docs/scripts/docs-gate.test.sh` — 23 casos, vermelhos de
 propósito, contra repos de fixture com um defeito cada.

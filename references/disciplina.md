@@ -45,7 +45,7 @@ documenta; mexida interna sem efeito externo não gera papel por gerar.
    (`api-versionamento.md`) versionam a superfície pública.
 4. **Testada no CI.** É o que separa docs-as-code de "markdown no git" — e desde 2026-08-21 isto
    **roda**: `scripts/docs-gate.mjs` (comando `/docs-review`), `0` passa · `1` reprova · `2` nada
-   verificável, que não é aprovação. Os cinco gates:
+   verificável, que não é aprovação. Os sete gates (exemplos/snippets que rodam são disciplina de review, sem script):
    - **Links** — link interno/externo que abre (link-checker no CI); link morto reprova.
    - **Exemplos/snippets** — o código de exemplo **compila/roda** (doctest, exemplo executável, ou
      snippet extraído e testado). Exemplo que não roda é pior que nenhum: engana com autoridade.
@@ -53,6 +53,8 @@ documenta; mexida interna sem efeito externo não gera papel por gerar.
      `api-versionamento.md`).
    - **Índice (§39)** — a contagem bate (`nº de entradas == nº de funções`); CI reprova se não.
    - **Root limpo** (§5 deste arquivo) — `.md` **gerado** na raiz reprova.
+   - **ADR** — `proposed` sem data ou mais velho que `--adr-dias` (default 30) reprova.
+   - **Diagrama** — imagem de diagrama em `docs/`/`*_archive/` sem fonte `.mmd`/mermaid reprova.
 
    Duas decisões do gate que valem ser ditas: no **openapi**, ele usa **Spectral** quando existe e,
    quando não existe, roda um **piso embutido** que **declara ser piso** (menos regras, não
@@ -105,7 +107,7 @@ oncall às 3h com o serviço caído, o auditor que pergunta "por que essa decis�
 | Artefato | Onde |
 |---|---|
 | README | raiz do repo/módulo (mão) |
-| ADR | `<projeto>_archive/decisoes/<n>-<slug>.md` (versionado) — `adr.md` |
+| ADR | `<projeto>_archive/decisoes/ADR-NNNN-<slug>.md` (versionado) — `adr.md` |
 | Runbook | `docs/runbook*.md` ou `/docs/runbook/` — `runbooks.md` |
 | OpenAPI/contrato | versionado (`openapi.yaml`/gerado) — `api-versionamento.md` |
 | Changelog | `CHANGELOG.md` na raiz (Keep a Changelog) — `api-versionamento.md` |
@@ -113,7 +115,7 @@ oncall às 3h com o serviço caído, o auditor que pergunta "por que essa decis�
 | Índice/MAPA (§39) | `<projeto>_archive/index/` — `indice-diagramas.md` |
 | Plano/relatório/handoff/scan/auditoria | `<projeto>_archive/**` (§28) |
 
-O **root fica limpo**: só código, config e os poucos MDs de mão — `README`, `CLAUDE`, `LICENSE`, `CHANGELOG`, `CONTRIBUTING`, `SECURITY`. *(A allowlist é **esta**, e ela é a mesma nos três lugares desta skill e no gate `scripts/docs-gate.mjs --so root`. `CHANGELOG` entra porque a própria casa normatiza Keep a Changelog **na raiz**; ADR **não** entra — mora em `<projeto>_archive/decisoes/`.)*
+O **root fica limpo**: só código, config e os poucos MDs de mão — `README`, `CLAUDE`, `SKILL`, `LICENSE`, `CHANGELOG`, `CONTRIBUTING`, `CODE_OF_CONDUCT`, `SECURITY`, `AGENTS`, `CONTEXT`. *(A fonte da allowlist é o gate `scripts/docs-gate.mjs --so root`; esta lista a espelha. `CHANGELOG` entra porque a própria casa normatiza Keep a Changelog **na raiz**; ADR **não** entra — mora em `<projeto>_archive/decisoes/`.)*
 Largar MAPA/índice/plano/relatório no root é violação (§37) e fere a contenção de workspace. Antes
 de gravar qualquer `.md`, o caminho começa com `<projeto>_archive/` ou `docs/` — nunca solto no
 root.

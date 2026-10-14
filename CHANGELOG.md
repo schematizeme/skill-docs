@@ -4,6 +4,19 @@ Todas as mudanças relevantes deste pacote, no formato [Keep a Changelog](https:
 com versionamento [SemVer](https://semver.org/lang/pt-BR/).
 
 
+## [0.4.0] — 2026-10-14
+
+### Corrigido
+- Nome do ADR unificado em `ADR-NNNN-<slug>.md` (`docs-adr.md`, `adr.md`, `disciplina.md`), o padrão que o `check-archive.sh` da `schematize-archive` cobra; antes mandava `<n>-<slug>.md` e o ADR nascia fora do padrão.
+- Tabela de `indice-diagramas.md` punha ADR/runbook/OpenAPI em `docs/`/raiz; agora cada um tem um caminho só (ADR em `decisoes/`, runbook em `docs/runbook*`, OpenAPI na raiz ou `docs/`).
+- Texto da allowlist do root passa a listar exatamente a do gate (inclui SKILL, AGENTS, CONTEXT, CODE_OF_CONDUCT): a fonte é o código, não a prosa.
+- Description reduzida a <=350 caracteres; promessa de "exemplo que roda" e "runbook testado" rebaixada para o que é verificado em review/game day.
+
+### Adicionado
+- Gate `adr` no `docs-gate.mjs`: ADR `proposed` sem data ou mais velho que `--adr-dias` (default 30) reprova. Cumpre a promessa de "nunca `proposed` órfão".
+- Gate `diagrama`: imagem de diagrama em `docs/`/`*_archive/` sem fonte `.mmd`/mermaid reprova. Cumpre "Mermaid, nunca imagem opaca".
+- 5 casos novos (2 verdes, 3 vermelhos plantados) em `docs-gate.test.sh`: 23 no total.
+
 ## [0.3.0] — 2026-08-21
 
 ### Corrigido

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Vermelho primeiro dos cinco gates. Cada fixture e um repo de mentira com UM defeito de doc.
+# Vermelho primeiro dos sete gates. Cada fixture e um repo de mentira com UM defeito de doc.
 # EXCEÇÃO DECLARADA de strict mode (`schematize-shell` -> `references/piso.md` secao 1):
 # harness de teste roda sem `-e` de propósito — ele precisa continuar depois de um caso
 # vermelho para reportar TODOS, em vez de parar no primeiro.
@@ -122,6 +122,24 @@ d="$(repo r1)"; printf '# Plano\n' > "$d/PLANO-2026.md"
 checa "MD gerado solto na raiz reprova" 1 "root limpo" node "$G" "$d" --so root
 d="$(repo r2)"; printf '# Mapa\n' > "$d/MAPA.md"
 checa "MAPA no root reprova" 1 "MAPA.md solto na raiz" node "$G" "$d" --so root
+
+echo "== 6. adr proposed =="
+d="$(repo a1)"; mkdir -p "$d/p_archive/decisoes"
+printf '# ADR 0001\n\n- **Status:** proposed\n- **Data:** 2020-01-01\n' > "$d/p_archive/decisoes/ADR-0001-x.md"
+checa "ADR proposed velho reprova" 1 "proposed ha" node "$G" "$d" --so adr
+d="$(repo a2)"; mkdir -p "$d/p_archive/decisoes"
+printf '# ADR 0001\n\n- **Status:** proposed\n' > "$d/p_archive/decisoes/ADR-0001-x.md"
+checa "ADR proposed sem data reprova" 1 "sem **Data:**" node "$G" "$d" --so adr
+d="$(repo a3)"; mkdir -p "$d/p_archive/decisoes"
+printf '# ADR 0001\n\n- **Status:** accepted\n- **Data:** 2020-01-01\n' > "$d/p_archive/decisoes/ADR-0001-x.md"
+printf '# ADR 0002\n\n- **Status:** proposed\n- **Data:** %s\n' "$(date -u +%F)" > "$d/p_archive/decisoes/ADR-0002-y.md"
+checa "ADR accepted antigo e proposed recente passam" 0 "" node "$G" "$d" --so adr
+
+echo "== 7. diagrama sem fonte =="
+d="$(repo g1)"; printf 'x' > "$d/docs/diagrama-arquitetura.png"
+checa "PNG de diagrama sem fonte reprova" 1 "imagem sem fonte" node "$G" "$d" --so diagrama
+d="$(repo g2)"; printf 'x' > "$d/docs/diagrama-arquitetura.png"; printf 'graph TD; A-->B\n' > "$d/docs/diagrama-arquitetura.mmd"
+checa "PNG com .mmd ao lado passa" 0 "" node "$G" "$d" --so diagrama
 
 echo "== nada verificavel nao e aprovacao =="
 d="$TMP/vazio"; mkdir -p "$d"
