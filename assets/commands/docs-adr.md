@@ -14,7 +14,7 @@ mudança de contrato público, nova fronteira/bounded context, migração. **Nã
 trivial e reversível em minutos. Regra: se daqui a um ano alguém pergunta "por que assim?", é ADR.
 
 ## 2. Crie o arquivo `<projeto>/<projeto>_archive/decisoes/ADR-NNNN-${ARGUMENTS:-<slug>}.md`
-`NNNN` sequencial com 4 dígitos (ex.: `ADR-0007-fila-sqs-vs-nats.md`; padrão checado pelo `check-archive.sh` da `schematize-archive`; próximo número livre (em `<projeto>_archive/decisoes/` — **caminho único da casa**: é lá que a `/archive-todos` procura e a `/audit-run` audita). Estrutura (§3):
+`NNNN` sequencial com 4 dígitos (ex.: ADR-0007-fila-sqs-vs-nats.md; padrão checado pelo `check-archive.sh` da `schematize-archive`; próximo número livre (em `<projeto>_archive/decisoes/` — **caminho único da casa**: é lá que a `/archive-todos` procura e a `/audit-run` audita). Estrutura (§3):
 - **Status:** `proposed` (ou o desfecho, se já decidido) · **Data** · **Autor(es)** · **Supersede**
 - **Contexto** — o que força a decisão agora (fatos/restrições, não opinião).
 - **Decisão** — em uma frase afirmativa, aplicável sem reabrir a discussão.

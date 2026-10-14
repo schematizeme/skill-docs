@@ -52,7 +52,7 @@ da auditoria passar.
 
 ## 3. Anatomia de um ADR (formato mínimo)
 
-Um ADR mora em `<projeto>/<projeto>_archive/decisoes/ADR-NNNN-<slug>.md` (`NNNN` sequencial de 4 dígitos, ex.: `ADR-0007-fila-sqs-vs-nats.md`) e
+Um ADR mora em `<projeto>/<projeto>_archive/decisoes/ADR-NNNN-<slug>.md` (`NNNN` sequencial de 4 dígitos, ex.: ADR-0007-fila-sqs-vs-nats.md) e
 carrega:
 
 ```markdown
