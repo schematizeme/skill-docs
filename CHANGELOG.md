@@ -16,6 +16,7 @@ com versionamento [SemVer](https://semver.org/lang/pt-BR/).
 - Gate `adr` no `docs-gate.mjs`: ADR `proposed` sem data ou mais velho que `--adr-dias` (default 30) reprova. Cumpre a promessa de "nunca `proposed` órfão".
 - Gate `diagrama`: imagem de diagrama em `docs/`/`*_archive/` sem fonte `.mmd`/mermaid reprova. Cumpre "Mermaid, nunca imagem opaca".
 - 5 casos novos (2 verdes, 3 vermelhos plantados) em `docs-gate.test.sh`: 23 no total.
+- **Description** reduzida (~270 chars) para caber no orçamento de listagem (soma das 31 skills ≤ 8500; o Claude Code corta a listagem acima disso).
 
 ## [0.3.0] — 2026-08-21
 
